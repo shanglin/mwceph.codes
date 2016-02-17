@@ -1,0 +1,1 @@
+This script will delete most bad dark frames based on their meidan values and standard deviations of the values. However, There are still some weird frames left. To deal with those, I visually check them and move them the directory visual_bad_darks/.

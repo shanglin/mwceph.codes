@@ -1,0 +1,4 @@
+1. check dark.r 
+2. visually check bad frames (hard copy record) (~/Work/mega/mwceph/pphot/dark/visual_bad_darks/visual.bad.list)
+3. find.mask.lim.r
+4. mkmask.pro

@@ -1,0 +1,7 @@
+Feb 16, 2016
+This script changed. 
+The values of bad limits were no longer chosen by eye. After 5 iterations of 5 sigma clipping, the 3-sigma boundary of the distribution of pixels values of all the used dark frames was derived.
+
+Bad limits are shown in the figure:
+~/Work/mega/mwceph/pphot/dark/mask_lim.eps
+< 402.5 or > 412.0
