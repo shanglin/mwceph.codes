@@ -1,0 +1,56 @@
+(1) Most work of period search was done previous, and their results was put at:
+~/Work/mega/mwceph/pphot/period_all/ehat.dat.part1 
+
+(2) There are 6 recent objects left. They were triggered later than the first reduction. They are:
+sy_nor
+vj_ara
+w_sgr
+sv_vel
+cr_car
+s_nor
+
+(3) In this directory, we will deal with these above 6 objects.
+
+===========================================
+Order of ./period_all/:
+
+(1) getper.py will pull out the GCVS period. Interestingly CR ARA has a period of 0.50096 days based on GCVS.
+
+(2) Collecting data. This is boring and time-consuming. 
+    Manually search good observations at: http://crocus.physics.mcmaster.ca/Cepheid/Classical.html
+    Filter number based on: http://iopscience.iop.org/article/10.1088/0004-637X/748/2/107/pdf
+    Paper downloaded and saved at: ~/Work/mega/mwceph/pphot/period_all/model_paper.pdf
+
+(3) slc2ipt.py will make initial input at /model_per/inputs_it1/
+
+(4) in /model_per/calphat_it1/:
+    copy ~/Work/mega/mwceph/period_search/calphat_it1/period .
+    copy ~/Work/mega/mwceph/period_search/calphat_it1/vector.dat .
+    copy ~/Work/mega/mwceph/period_search/calphat_it1/template.dat .
+    copy ~/Work/mega/mwceph/period_search/calphat_it1/bindat01.com .
+    copy ~/Work/mega/mwceph/period_search/calphat_it1/mkit1sh.r .
+    run Rscript mkit1sh.r
+    run tcsh doit1all.sh
+    Paramters in period: 
+    	      wl_Prange = 1.5 ! This will test from P0 - PR/2 to P0 + PR/2
+	      wl_Rfactor = 2
+ 	      nphase = 3
+    output:
+       <obj>_chi_sqr.dat
+    mkperlst_it1_it2.r will make a new period estimation file in input_it2/
+
+(5) in /model_per/inputs_it2/:
+    run python slc2ipt.py to generate new .ipt files
+
+(6) in /model_per/calphat_it2/:
+    copy ~/Work/mega/mwceph/period_search/calphat_it1/period .
+    copy ~/Work/mega/mwceph/period_search/calphat_it1/vector.dat .
+    copy ~/Work/mega/mwceph/period_search/calphat_it1/template.dat .
+    copy ~/Work/mega/mwceph/period_search/calphat_it1/bindat01.com .
+    copy ~/Work/mega/mwceph/period_search/calphat_it1/mkit1sh.r .
+    run Rscript mkit1sh.r
+    run tcsh doit1all.sh
+    Paramters in period: 
+    	      wl_Prange = 0.04 ! This will test from P0 - PR/2 to P0 + PR/2
+	      wl_Rfactor = 0.05
+ 	      nphase = 30
