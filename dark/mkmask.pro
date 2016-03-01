@@ -8,8 +8,12 @@ print,' 3. measure the flux of the fixed pixels'
 print,' 4. calculate the errors due to the bad pixels for each measurement'
 print,''
 
-low = 402.5
-high = 412.0 ; These values are at the 3-sigma boundary
+;; low = 402.5
+;; high = 412.0 ; These values are at the 3-sigma boundary
+;; For consistency, use old low and high values
+low = 404
+high = 417
+
 fits = file_search('dark??????.fits',count=nfits)
 for i_fit=0,nfits-1 do begin
    f_fit = fits(i_fit)

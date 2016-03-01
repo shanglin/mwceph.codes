@@ -37,20 +37,74 @@ Order of ./period_all/:
  	      nphase = 3
     output:
        <obj>_chi_sqr.dat
+
     mkperlst_it1_it2.r will make a new period estimation file in input_it2/
 
 (5) in /model_per/inputs_it2/:
     run python slc2ipt.py to generate new .ipt files
 
 (6) in /model_per/calphat_it2/:
-    copy ~/Work/mega/mwceph/period_search/calphat_it1/period .
-    copy ~/Work/mega/mwceph/period_search/calphat_it1/vector.dat .
-    copy ~/Work/mega/mwceph/period_search/calphat_it1/template.dat .
-    copy ~/Work/mega/mwceph/period_search/calphat_it1/bindat01.com .
-    copy ~/Work/mega/mwceph/period_search/calphat_it1/mkit1sh.r .
+    copy ~/Work/mega/mwceph/period_search/calphat_it2/period .
+    copy ~/Work/mega/mwceph/period_search/calphat_it2/vector.dat .
+    copy ~/Work/mega/mwceph/period_search/calphat_it2/template.dat .
+    copy ~/Work/mega/mwceph/period_search/calphat_it2/bindat01.com .
+    copy ~/Work/mega/mwceph/period_search/calphat_it2/mkit1sh.r .
     run Rscript mkit1sh.r
     run tcsh doit1all.sh
     Paramters in period: 
     	      wl_Prange = 0.04 ! This will test from P0 - PR/2 to P0 + PR/2
 	      wl_Rfactor = 0.05
  	      nphase = 30
+
+(7) in /model_per/inputs_it3/:
+    run mkperlst.r to generate a new period list
+    run python slc2ipt.py to generate new .ipt files
+
+(8) in /model_per/calphat_it3/:
+    copy ~/Work/mega/mwceph/period_search/calphat_it3/period .
+    copy ~/Work/mega/mwceph/period_search/calphat_it3/vector.dat .
+    copy ~/Work/mega/mwceph/period_search/calphat_it3/template.dat .
+    copy ~/Work/mega/mwceph/period_search/calphat_it3/bindat01.com .
+    copy ~/Work/mega/mwceph/period_search/calphat_it3/mkit1sh.r .
+    run Rscript mkit1sh.r
+    run tcsh doit1all.sh
+    Paramters in period: 
+    	      wl_Prange = 0.001 ! This will test from P0 - PR/2 to P0 + PR/2
+	      wl_Rfactor = 0.005
+ 	      nphase = 30
+
+(9) phat:
+    mkperlst.r will smooth the chi-period relations and find the minima, then write the period to objper_it3.lst.
+
+(10) inputs_boot:
+     inputs for boot really asks for a template rather than the normal input files. This should be done by a new version of period.f to write templates to a file.
+     cp slc2ipt.py .
+     copy ~/Work/mega/mwceph/period_search/inputs_boot/period .
+     copy ~/Work/mega/mwceph/period_search/inputs_boot/vector.dat .
+     copy ~/Work/mega/mwceph/period_search/inputs_boot/template.dat .
+     copy ~/Work/mega/mwceph/period_search/inputs_boot/bindat01.com .
+     copy ~/Work/mega/mwceph/period_search/inputs_boot/mkit1sh.r .
+     run Rscript mkit1sh.r
+     run tcsh doit1all.sh
+
+(11) boot_residual:
+     copy ~/Work/mega/mwceph/period_search/boot_residual/period .
+     copy ~/Work/mega/mwceph/period_search/boot_residual/vector.dat .
+     copy ~/Work/mega/mwceph/period_search/boot_residual/template.dat .
+     copy ~/Work/mega/mwceph/period_search/boot_residual/bindat01.com .
+     copy ~/Work/mega/mwceph/period_search/boot_residual/doboot.com .
+     run doboot.r
+        wl_Prange = 0.03 ! This will test from P0 - PR/2 to P0 + PR/2
+	wl_Rfactor = 0.2
+	nphase = 5
+	dpFactor = 1 except for s-vul with dpFactor = 10
+        set.seed(101)
+        B = 500
+        Period_Star was found by smooth.spline
+
+(12) phat_ehat:
+     run mkehat.r
+     cp ehat.dat ../../ehat.dat.part2
+     combine the two parts
+ 
+Finished!
