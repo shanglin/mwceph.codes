@@ -8,7 +8,8 @@ spawn,'cp ../photh/*.ulc ./hulc.ulc'
 f_ulc = 'hulc.ulc'
 rdfile,f_ulc,str_ulc,fmt_ulc,1,ulc,nl_ulc
 ulc.img = rmfgspc(ulc.img)
-ulc = ulc(where(ulc.flag le 1,cnt))
+ulc = ulc(where(ulc.flag le 1))
+ulc = ulc(where(ulc.dm ne -99,cnt))
 nl_ulc = cnt - 1
 
 f_cpt = 'cepheid_table.cpt'
@@ -36,19 +37,28 @@ for apr=6,6 do begin
    ecol = mcol + 24
    for i=0,nl_cpt do begin
       ts = cpt[i]
-      ind = where(abs(ts.mjd-ulc.mjd) lt 0.5,cnt)
-      ind = ind[0]
-      tt = ulc[ind]
-      lc[i].img = ts.img
-      lc[i].ph = ts.ph
-      lc[i].m = ts.(mcol) - tt.mndm
-      lc[i].e = sqrt(ts.(ecol)^2 + tt.errdm^2)
+      ind = where(abs(ts.mjd-ulc.mjd) lt 0.15,cnt)
+      if (cnt ge 1) then begin
+         ind = ind[0]
+         tt = ulc[ind]
+         lc[i].img = ts.img
+         lc[i].ph = ts.ph
+         lc[i].m = ts.(mcol) - tt.mndm
+         lc[i].e = sqrt(ts.(ecol)^2 + tt.errdm^2)
+         lc[i].dm = tt.mndm
+         lc[i].edm = tt.errdm
+      endif else begin
+         lc[i].img = ts.img
+         lc[i].ph = ts.ph
+         lc[i].m = ts.(mcol) - 99
+         lc[i].e = sqrt(ts.(ecol)^2 + 99^2)
+         lc[i].dm = 99
+         lc[i].edm = 99
+      endelse
       if ts.pol eq 'N' then flag=10
       if ts.pol eq 'S' then flag=20
       if ts.pol eq 'Y' then flag=30
       lc[i].flag = flag
-      lc[i].dm = tt.mndm
-      lc[i].edm = tt.errdm
    endfor
    x = lc.ph
    y = lc.m

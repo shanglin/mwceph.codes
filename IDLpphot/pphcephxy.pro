@@ -29,7 +29,7 @@ for i_fit=0,nfits-1 do begin
    
    ceph_x = -1
    ceph_y = -1
-   for i=0,min([nl_coo,10]) do begin
+   for i=0,min([nl_coo,30]) do begin
       xc = coo[i].x
       yc = coo[i].y
       img2 = img

@@ -41,8 +41,8 @@ h = h.astype(np.float)
 eh = eh.astype(np.float)
 
 # Update these two or three parameters
-ra0 = 96.30417
-dec0 = 7.08571
+ra0 = 96.30417 update me
+dec0 = 7.08571 update me
 xylim = 230
 
 # a for ra in radius, d for dec in radius
@@ -59,8 +59,10 @@ p = plt.scatter(y,x,s=(100./h)**3/10.,marker='o')
 plt.xlim(-1*xylim,xylim)
 plt.ylim(-1*xylim,xylim)
 for k in range(len(x)):
-    plt.text(y[k]+10,x[k],str(k))
-plt.show()
+    if (x[k] < xylim and x[k] > -1*xylim and y[k] < xylim and y[k] > -1*xylim):
+        plt.text(y[k]+10,x[k],str(k))
+# plt.show()
+plt.savefig('psc.png')
 
 # generate a fake .ALF file
 h_alf = open('psc.alf','w')

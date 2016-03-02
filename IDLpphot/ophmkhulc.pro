@@ -18,6 +18,7 @@ dats = file_search('./*_hlc.dat',count=ndats)
         print,'  >>>>>>>>>>>>>>>>>>>>'
         print,f_dat
         print,'  >>>>>>>>>>>>>>>>>>>>'
+        print,'  Add missing lines to <obj>_hlc.dat and cp it as <obj>.ulc'
      endif else begin
         f_ulc = repstr(f_dat,'_hlc.dat','.ulc')
         spawn,'cp '+f_dat+' '+f_ulc

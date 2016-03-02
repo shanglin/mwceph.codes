@@ -108,7 +108,7 @@ pro pphtemplch2,obj
      
      window,0
      for i_chk=0,nl_slc do begin
-        plot,contx,conty,yrange=[mean(y)+1*stddev(y),mean(y)-1*stddev(y)],/yst
+        plot,contx,conty,yrange=[mean(y)+0.4,mean(y)-0.4],/yst
         oplot,x,y,psym=2
         errplot,x,y+yerr,y-yerr
         xchk = [slc[i_chk].ph,slc[i_chk].ph+1]

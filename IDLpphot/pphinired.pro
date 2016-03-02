@@ -39,8 +39,8 @@ for i_fit=0,nfits-1 do begin
    if cnt ne 1 then message,'Keyword OBJECT not found in '+f_fit
    if object eq 'V0339CEN' then object = 'VJCEN'
    if object eq 'V0340ARA' then object = 'VJARA'
-   if object ne objname then message,' Warning! '+f_fit+' has a wrong object name' else statusline,'           ... OBJECT KEYWORD GOOD'
-   ind = where(objname eq dat.alias,cnt)
+   if (object ne objname) and (object ne objname+'R') then message,' Warning! '+f_fit+' has a wrong object name' else statusline,'           ... OBJECT KEYWORD GOOD'
+   ind = where(object eq dat.alias,cnt)
    if cnt ne 1 then message,'Keyword OBJECT not found in '+f_dat
    ts = dat[ind]
    ra = strmid(rmfgspc(sxpar(head,'RA',count=cnt1)),0,8)

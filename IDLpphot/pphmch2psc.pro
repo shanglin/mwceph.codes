@@ -100,6 +100,9 @@ fmt_tfr = '(I7,2(F9.3),2(I7))'
 str_tfr = {id:0l,x:0.,y:0.,f1:0l,f2:0l}
 f_tfr = root + '.tfr'
 if (~file_test(f_tfr)) then begin
+   if (~file_test('eyemch.dat')) then begin
+      spawn,'echo "ctio_master_id   psc_id" > eyemch.dat'
+   endif
    stop,'Match by hand and use pphmch2psc_byhand.pro'
 endif
 rdfile,f_tfr,str_tfr,fmt_tfr,3,tfr,nl_tfr

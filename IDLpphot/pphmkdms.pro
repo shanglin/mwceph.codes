@@ -58,9 +58,11 @@ asksigma:
          read,uporlow,prompt=' Remove upper or lower point? (u/l): '
       endwhile
       if uporlow eq 'u' then begin
+         cnts = cnts - cnt
          keepind = where(y ne max(y))
          god = god(keepind)
       endif else begin
+         cnts = cnts - cnt
          keepind = where(y ne min(y))
          god = god(keepind)
       endelse
@@ -101,4 +103,6 @@ for i=0,ndms-1 do begin
    printf,lun,dms[i],format=fmt_dms
 endfor
 cf,lun
+wdelete,0
+wdelete,2
 end
