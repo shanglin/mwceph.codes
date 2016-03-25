@@ -9,3 +9,12 @@
    Calculate the ND4 factor based on each data points rather than the mean mag of light curves. 
 
 4. make a quality table to determine H/N
+
+5. make zero points of ND4, 2MASS
+   mkzeropoints.r
+
+6. make calibrated light curves & fit Inno15 model
+   mkcalilc.r
+
+7. make figures for the calibrated light curves
+   plotlc.r
