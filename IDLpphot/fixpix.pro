@@ -1,3 +1,37 @@
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+;; Copyright © 1995-1996 by Michael Liu
+
 pro fixpix,imgs,badpix,outimgs, $
 	   npix=npix,weight=weight, $
 	   noise=noise,sigma=sigma,dc=dc, $
