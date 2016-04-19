@@ -58,21 +58,52 @@ objs = toupper(objs)
 
 f.tex = '~/Work/mega/mwceph/draft/v2.2/tables/measure.tex'
 system(paste0('rm -f ',f.tex))
+line.count = 0
+n.line = 20
 for (i.dat in 1:n.dat) {
     alias = lst[i.dat,5]
+    idx = alias == par[,2]
+    if (sum(idx) != 1) stop(alias)
+    err.2mass = as.character(round(par[idx,12]*1000))
+    err.nd4 = as.character(round(par[idx,13]*1000))
+    while (nchar(err.2mass) < 3) {
+        err.2mass = paste0('0',err.2mass)
+    }
+    while (nchar(err.nd4) < 3) {
+        err.nd4 = paste0('0',err.nd4)
+    }
+    err.nd4 = gsub('000','-',err.nd4)
     obj = lst[i.dat,1]
     idx = objs == alias
     if (sum(idx) != 1) stop(obj)
     f.clc = fs.clc[idx]
     lf.clc = paste0(clc.dir, f.clc)
     lc = read.table(lf.clc)
+    lc = lc[order(lc[,1]),]
     for (i in 1:nrow(lc)) {
+        line.count = line.count + 1
         mjd = lc[i,1]
+        mjd = as.character(mjd)
+        while (nchar(mjd) < 10) {
+            mjd = paste0(mjd,'0')
+        }
         mag = lc[i,2]
+        mag = as.character(mag)
+        while (nchar(mag) < 5) {
+            mag = paste0(mag,'0')
+        }
         err = lc[i,3]
-        err = as.character(err)
+        err = as.character(err*1000)
         while (nchar(err) < 3) {
             err = paste0('0',err)
         }
-        
+        if (line.count < n.line) 
+            ts = paste0(obj,' & ',mjd,' & ',mag,' & ',err,' & ',err.2mass,' & ',err.nd4,'\\\\')
+        else
+            ts = paste0(obj,' & ',mjd,' & ',mag,' & ',err,' & ',err.2mass,' & ',err.nd4)
+        write(ts, f.tex, append=T)
+        if (line.count >=n.line) break
+    }
+    if (line.count >=n.line) break
 }
+
