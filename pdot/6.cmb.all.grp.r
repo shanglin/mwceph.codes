@@ -61,7 +61,10 @@ for (i in 1:nper) {
         V4 = rep(vid, nrow(as))
         V5 = as[,4]
         dat2 = cbind(as[,1:3],V4, V5)
-        dat = rbind(dat, dat2)
+        if (obj == 'hwcar')
+            dat = dat2
+        else 
+            dat = rbind(dat, dat2)
     }
     
     f.clc = paste0(hdir, obj, '_h.clc')

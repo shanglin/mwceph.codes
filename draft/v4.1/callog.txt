@@ -1,0 +1,5 @@
+[1] "In epoch-to-epoch offset, rejected 6.14% images"
+[1] "For H+ND4 images, rejected 32.41% images"
+[1] "For all images, rejected 7.74% measurements"
+[1] "For all images, rejected 4.53% measurements with sigma<=0.11"
+[1] "ND4 calculation used additional 5 objects in group A"

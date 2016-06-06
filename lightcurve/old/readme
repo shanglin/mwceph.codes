@@ -1,0 +1,20 @@
+1. make raw lc with good observations, including north cepheids
+    mjd, m, e
+    mkrawlc.r
+  This procedure is going to reject those points with very large uncertainties and bad observations for ND4 observations.
+
+2. make exposure time
+
+3. calnd4.r
+   Calculate the ND4 factor based on each data points rather than the mean mag of light curves. 
+
+4. make a quality table to determine H/N
+
+5. make zero points of ND4, 2MASS
+   mkzeropoints.r
+
+6. make calibrated light curves & fit Inno15 model
+   mkcalilc.r
+
+7. make figures for the calibrated light curves
+   plotlc.r

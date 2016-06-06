@@ -1,6 +1,6 @@
 set.seed(101)
 
-nB = 10
+nB = 20
 
 outdir = '~/Work/mega/mwceph/pdot/cal.pdot/peps/'
 figdir = '~/Work/mega/mwceph/pdot/cal.pdot/figs/'
@@ -25,7 +25,7 @@ calphat = function(d, prange=1, rfactor=1, nphase=10, resolution=1e-4, phat=peri
     ts = paste0(fort.periodogram,' < infile > tmp.out')
     write(ts, f.sh, append=T)
     ts = 'rm -f fort.13 fort.14 fort.15 tmp.out tmp.ipt infile'
-    write(ts, f.sh, append=T)
+    ## write(ts, f.sh, append=T)
     dir.current = getwd()
     setwd(dir)
     cmd = paste0('echo "',round(prange,7),'" > infile')
@@ -94,26 +94,29 @@ calehat = function(d) {
         idx = unique(idx)
         if (length(idx) > 10) {
             b = d[idx,]
-            ret = calphat(b, prange0,  5, 10, 1e-4, period, plot=F)
-            prange = ret[1]
-            pstar = ret[2]
-            iwhile = 2
-            while (prange == -1) {
-                prangel = prange0*2^iwhile
-                ret = calphat(b, prangel, 5, 10, 1e-4, period, plot=F)
+            if (sum(b[,4] > 0) > 10) {
+                ret = calphat(b, prange0,  5, 10, 1e-4, period, plot=F)
                 prange = ret[1]
                 pstar = ret[2]
-                iwhile = iwhile + 1
+                iwhile = 2
+                while (prange == -1) {
+                    prangel = prange0*2^iwhile
+                    ret = calphat(b, prangel, 5, 10, 1e-4, period, plot=F)
+                    prange = ret[1]
+                    pstar = ret[2]
+                    iwhile = iwhile + 1
+                }
+                while (prange > 1e-6) {
+                    ret = calphat(b, prange, prange*10, 30, prange*0.01, pstar, plot=F)
+                    prange = ret[1]
+                    pstar = ret[2]
+                }
+                pstars[iB] = pstar
             }
-            while (prange > 1e-6) {
-                ret = calphat(b, prange, prange*10, 30, prange*0.01, pstar, plot=F)
-                prange = ret[1]
-                pstar = ret[2]
-            }
-            pstars[iB] = pstar
         }
     }
     sigma = sd(pstars, na.rm=T)
+    if (is.na(sigma)) sigma = 99.99
     return(sigma)
     print('')
 }
@@ -154,6 +157,7 @@ for (ipar in 1:npar) {
         if (sum(idx) > 30) {
             sub = dat[idx,]
             prange0 = 0.01
+            prange = prange0
             ret = calphat(sub, prange0, 5, 10, 1e-4, period)
             prange = ret[1]
             iwhile = 2
@@ -176,7 +180,9 @@ for (ipar in 1:npar) {
                 print(msg)
                 new = rjoutlier(sub)
                 new = rjoutlier(new)
+                prange = prange0
                 ret = calphat(new, prange0, 5, 10, 1e-4, period)
+                prange = ret[1]
                 while (prange == -1) {
                     prangel = prange0*2^iwhile
                     ret = calphat(new, prangel, 5, 10, 1e-4, period)
