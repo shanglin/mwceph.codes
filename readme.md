@@ -14,6 +14,7 @@
 - `lightcurve` contains R scripts for generating light curves and fitting them to templates from Inno+ (2015). 
 - `period_all` is for the first trial of estimating periods using literature data.
 - `pdot` contains the code for final determination of periods.
+  - pejcha.f is a directory that contains some modified fortran codes from [Ondrej & Christopher (2012)] (http://www.astro.princeton.edu/~pejcha/cepheids/)
 - `draft` contains R scripts for making figures and tables in the draft paper.
 
 
