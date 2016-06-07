@@ -37,23 +37,41 @@ fig.width = fig.height * golden.ratio
 postscript(f.eps,height = fig.height, width = fig.width)
 
 par(mar=c(5,5,2,2))
-x = god[,1]
-y = god[,2]
-e = god[,3]
-dx = c(0, 0, -700, 700)
-dy = c(-3e-3, 3e-3, -3e-3, 3e-3)*0.5
-xlab = 'JD - 2.4E6'
-ylab = expression(paste(italic('P'),' [day]'))
+## x = god[,1]
+## y = god[,2]
+## e = god[,3]
+## dx = c(0, 0, -700, 700)
+## dy = c(-3e-3, 3e-3, -3e-3, 3e-3)*0.5
+## xlab = 'JD - 2.4E6'
+## ylab = expression(paste(italic('P'),' [day]'))
+## plot(x[useidx], y[useidx], pch=19, cex=1, ylim = ylim, xlim=xlim, xlab=xlab, ylab=ylab,cex.lab=1.5, cex.axis=1.3)
+## points(x[!useidx], y[!useidx])
+## arrows(x, y-e, x, y+e, code=3, angle=90, length=0.01)
+## t1 = c('1970s','1980s','ASAS','OMC')
+## text(x+dx, y+dy, t1, adj=0.5, col='black', cex=1.3)
 
+
+x1 = mean(god[1:2,1])
+y1 = sum(1/god[1:2,3]^2 * god[1:2,2]) / sum(1/god[1:2,3]^2)
+e1 = mean(god[1:2,2] - y1)
+x = c(x1, god[3:4,1]) - 0.5
+y = c(y1, god[3:4,2])
+e = c(e1, god[3:4,3])
+dx = c(0, -700, 700)
+dy = c(6e-3, -3e-3, 3e-3)*0.5
+xlab = 'MJD'
+ylab = expression(paste(italic('P'),' [day]'))
+useidx = c(F,T,T)
 plot(x[useidx], y[useidx], pch=19, cex=1, ylim = ylim, xlim=xlim, xlab=xlab, ylab=ylab,cex.lab=1.5, cex.axis=1.3)
 points(x[!useidx], y[!useidx])
 arrows(x, y-e, x, y+e, code=3, angle=90, length=0.01)
-t1 = c('1970s','1980s','ASAS','OMC')
+t1 = c('1970-1990','ASAS','OMC')
 text(x+dx, y+dy, t1, adj=0.5, col='black', cex=1.3)
 
 
+
 if (bad.exist == 1) {
-    x = bad[,1]
+    x = bad[,1] - 0.5
     y = bad[,2]
     e = bad[,3]
     xlim = c(min(x)-900, max(x)+900)

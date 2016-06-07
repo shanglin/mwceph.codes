@@ -48,8 +48,8 @@ if (sum(idx) > 0) {
     objs = gsub('x-pup','X Pup',objs)
     objs = gsub('lcarl','l Car',objs)
     objs = gsub('kncen','KN Cen',objs)
-    text(p[!colidx]-0.3,dp[!colidx]+0.005,objs[!colidx],col=1,cex=1.3, adj=1)
-    text(p[colidx]-0.3,dp[colidx]+0.005,objs[colidx],cex=1.3, adj=1, col=4)
+    ## text(p[!colidx]-0.3,dp[!colidx]+0.005,objs[!colidx],col=1,cex=1.3, adj=1)
+    ## text(p[colidx]-0.3,dp[colidx]+0.005,objs[colidx],cex=1.3, adj=1, col=4)
 }
 
 ## mobjs = colids[!(colids %in% per[odp>dplim,1])]
@@ -103,16 +103,17 @@ con = file(f.eps, 'r')
 eps = readLines(con)
 close(con)
 idx = which(grepl('l Car', eps))
-neps = eps[1:(idx+3)]
-neps[idx] = gsub('l Car','  Car',neps[idx])
-neps[idx+1] = '/Palatino-Italic findfont 16 s'
-x.image = as.numeric(substr(neps[idx],1,6)) - 31
-y.image = as.numeric(substr(neps[idx],7,12))
-neps[idx+2] = paste(x.image, y.image, '(l) 1 0 t')
-neps[idx+3] = '/Font1 findfont 16 s'
-neps = c(neps, eps[(idx+1):length(eps)])
-write(neps, f.eps)
-
+if (length(idx) > 0) {
+    neps = eps[1:(idx+3)]
+    neps[idx] = gsub('l Car','  Car',neps[idx])
+    neps[idx+1] = '/Palatino-Italic findfont 16 s'
+    x.image = as.numeric(substr(neps[idx],1,6)) - 31
+    y.image = as.numeric(substr(neps[idx],7,12))
+    neps[idx+2] = paste(x.image, y.image, '(l) 1 0 t')
+    neps[idx+3] = '/Font1 findfont 16 s'
+    neps = c(neps, eps[(idx+1):length(eps)])
+    write(neps, f.eps)
+}
 
 ## stop()
 

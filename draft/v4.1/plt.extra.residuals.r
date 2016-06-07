@@ -18,6 +18,10 @@ n.col = 5
 width = 8.27
 height = width * n.row / n.col * 0.618
 
+f.res = '~/Work/mega/mwceph/phase_corr/20160606/model_residuals.dat'
+ts = '#    id        residual'
+write(ts, f.res)
+
 f.eps = paste0(odir,'extra.lc.residual.eps')
 setEPS()
 postscript(f.eps, width=width, height=height)
@@ -57,6 +61,11 @@ for (i in 1:nrow(dat)) {
     ymodel = calt(xmodel, PHI - dphi, M, L, a0)
     residuals = y - ymodel
     allresiduals = c(allresiduals, residuals)
+
+    for (residual in residuals) {
+        ts = paste(id, round(residual,5), sep='   ')
+        write(ts, f.res, append=T)
+    }
     
     xlim = c(0,1)
     ylim = c(-1, 1) * -0.15
@@ -130,7 +139,15 @@ write(neps, f.eps)
 f.eps = paste0(odir,'extra.hist.residual.eps')
 setEPS()
 postscript(f.eps, width=width, height=height)
-hist(allresiduals, breaks=20, xlab=ylab, col='skyblue', main='')
+xlim = c(-1,1)*0.12
+par(tck = -0.02)
+hist(allresiduals, breaks=20, xlab=ylab, col='skyblue', main='', xlim=xlim, xaxt='n')
+par(tck = -0.01)
+at = seq(xlim[1],xlim[2],0.01)
+axis(1, at = at, labels = rep('',length(at)))
+par(tck = -0.02)
+at = seq(-0.1,0.1,0.05)
+axis(1, at = at, labels = at)
 t1 = expression(paste(sigma, '(', Delta, italic(H), ') = ', 0.024, ' mag'))
-text(-0.08, 50, t1, cex=1.3)
+text(xlim[1], 50, t1, cex=1.3, adj=0)
 dev.off()

@@ -75,7 +75,7 @@ for (i.dat in 1:n.dat) {
     idx = alias == eha[,1]
     if (sum(idx) != 1) stop(alias)
     sig.p = eha[idx,3]
-
+    
     ts.mid = sprintf('%3s%10.6f%3s%9.6f%3s%5i%3s%7.4f%3s%7.4f%3s%7.4f%3s%7.4f%3s%7.4f%3s%7.4f',
         ' & ',tt[1,4],' & ',sig.p,' & ',tt[1,5]-2.45e6,' & ',tt[1,8],' & ',tt[1,9],' & ',tt[1,6],' & ',tt[1,7],' & ',tt[1,10],' & ',tt[1,11])
     

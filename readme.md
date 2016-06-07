@@ -16,6 +16,7 @@
 - `pdot` contains the code for final determination of periods.
   - pejcha.f is a directory that contains some modified fortran codes from [Ondrej & Christopher (2012)] (http://www.astro.princeton.edu/~pejcha/cepheids/)
 - `draft` contains R scripts for making figures and tables in the draft paper.
+- `phase_corr` gives the phase correction results and their uncertainties.
 
 
 
