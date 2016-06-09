@@ -1,4 +1,4 @@
-dir = '~/Work/mega/mwceph/phase_corr/20160606/'
+dir = '~/Work/mega/mwceph/phase_corr/20160609/'
 sigdir = paste0(dir,'sigs/')
 f.par = '~/Work/mega/mwceph/lightcurve/20160604/calilcs/mw_ceph_pars.dat'
 f.phs = paste0(dir, 'phase_ncyc.dat')
@@ -15,7 +15,7 @@ res = read.table(f.res, stringsAsFactors = F)
 f.eha = '~/Work/mega/mwceph/pdot/cal.pdot/period_eperiod.dat'
 eha = read.table(f.eha, stringsAsFactors = F)
 f.out = paste0(dir, 'sigma_correction.dat')
-ts = '#     id     sigma.1   sigma.2   sigma.3 sigma.total  mag.corr'
+ts = '#     id     sigma.1   sigma.2   sigma.3  sigma.13  max(13,2)   mag.corr'
 write(ts, f.out)
 for (i in 1:npar) {
     id = par[i,1]
@@ -40,7 +40,7 @@ for (i in 1:npar) {
         tmp1 = tmp1 + a0 + sum(amps*cos(2*pi*(1:7)*(phi.it + PHI) + phis))
         tmp2 = tmp2 + sum(amps*sin(2*pi*(1:7)*(phi.it + PHI) + phis) * 2*pi*(1:7))
     }       
-    sigma.1 = eM + eL/N * abs(tmp1) + L*ePHI/N*abs(tmp2)
+    sigma.1 = eL/N * abs(tmp1) + L*ePHI/N*abs(tmp2)
 
     sigma.2 = sd(res[res[,1] == id, 2]) / sqrt(N)
 
@@ -52,15 +52,17 @@ for (i in 1:npar) {
     ePeriod = eha[eha[,1]==id,3]
     sigma.3 = L/N * abs(tmp3) * ePeriod
 
-    sigma.total = sqrt(sigma.1^2 + sigma.2^2 + sigma.3^2)
-
+    sigma.total.13 = sqrt(sigma.1^2 + sigma.3^2)
+    sigma.out = max(sigma.2, sigma.total.13)
+    
     phase = ((sub[,4] - tref) / period) %% 1
     mt = calt(phase, PHI, M, L, a0)
     mag.corrs = M - mt
     mag.corr = sum(mag.corrs) / N
     
-    ts = sprintf('%10s%10.5f%10.5f%10.5f%10.5f%12.5f',id, sigma.1, sigma.2, sigma.3, sigma.total, mag.corr)
+    ts = sprintf('%10s%10.5f%10.5f%10.5f%10.5f%10.5f%12.5f',id, sigma.1, sigma.2, sigma.3, sigma.total.13, sigma.out, mag.corr)
     write(ts, f.out, append=T)
+    ## if (N==1) print(ts)
 }
 
 

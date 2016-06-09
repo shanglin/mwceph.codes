@@ -33,7 +33,7 @@ qua[,5] = as.character(qua[,5])
 qua[,1] = gsub('-','',qua[,1])
 qua[,1] = gsub('LCARL','LCAR',qua[,1])
 
-f.ecr = '~/Work/mega/mwceph/phase_corr/20160606/sigma_correction.dat'
+f.ecr = '~/Work/mega/mwceph/phase_corr/20160609/sigma_correction.dat'
 ecr = read.table(f.ecr, stringsAsFactors = F)
 
 
@@ -82,7 +82,7 @@ for (i.dat in 1:n.dat) {
 
     idx = ecr[,1] == tt[1,1]
     if (sum(idx) != 1) stop(obj)
-    sig.corr = ecr[idx, 5]
+    sig.corr = ecr[idx, 6]
     
     ts.mid = sprintf('%3s%10.6f%3s%9.0f%3s%5i%3s%7.3f%3s%7.0f%3s%7.0f%3s%7.0f%3s%7.0f%3s%7.0f%3s%7.0f',
         ' & ',tt[1,4],' & ',sig.p*1e6,' & ',tt[1,5]-2.45e6,' & ',tt[1,6],' & ',tt[1,7]*1e4,' & ',tt[1,8]*1e4,' & ',tt[1,9]*1e4,' & ',tt[1,10]*1e4,' & ',tt[1,11]*1e4,' & ',round(sig.corr*1e4))
