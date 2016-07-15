@@ -75,7 +75,7 @@ for (i in 1:nrow(dat)) {
          main = main, font.main = 1, cex.main = 0.9, col = 'black',
          cex.axis = 0.7, xaxt = 'n')
     if (i >= 30)
-        axis(1, at = seq(0,2,0.5), labels = c('0', '0.5', '1', '0.5', '1'))
+        axis(1, at = seq(0,2,0.5), labels = c('0', '0.5', '1', '1.5', '2'))
     else
         axis(1, at = seq(0,2,0.5), labels = rep('',5))
     points(x, y, pch = 19, cex = 0.9)

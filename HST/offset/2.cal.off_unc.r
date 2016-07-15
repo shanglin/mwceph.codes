@@ -1,13 +1,13 @@
-f.par = '~/Work/mega/mwceph/HST/colorcorr/crt_lcs/updated_bestfit_pars.dat'
+f.par = '~/Work/mega/mwceph/lightcurve/20160604/calilcs/mw_ceph_pars.dat'
 par = read.table(f.par, stringsAsFactors=F)
 
 dir = '~/Work/mega/mwceph/HST/offsets/'
-f.out = paste0(dir, 'dm_w_color_correction.dat')
+f.out = paste0(dir, 'dm_wo_color_correction.dat')
 ts = 'Name    #H_epochs   #F160W_epochs  ZP_offset   phase_correction_1   phase_correction_2   HST_phase'
 write(ts, f.out)
 
 figdir = '~/Work/mega/mwceph/HST/offsets/figs/'
-lcdir = '~/Work/mega/mwceph/HST/colorcorr/crt_lcs/'
+lcdir = '~/Work/mega/mwceph/lightcurve/20160604/calilcs/'
 f.hst = paste0(dir,'hst4.dat')
 hst = read.table(f.hst, skip=0, stringsAsFactors=F, header=T)
 
@@ -24,7 +24,7 @@ source('fitfuns/fun.fit.Inno15.r')
 load.pars()
 amp = 0.32
 
-f.pdf = paste0(figdir, 'lcs_w_color_correction.pdf')
+f.pdf = paste0(figdir, 'lcs_wo_color_correction.pdf')
 pdf(f.pdf, width=8, height=6)
 for (id in uids) {
     idx = par[,1] == id
@@ -49,9 +49,12 @@ for (id in uids) {
     phis = get.phis(period)
     amps = get.amps(period)
 
-    f.slc = paste0(lcdir, obj2, '_crted.dat')
+    ## f.slc = paste0(lcdir, obj2, '_crted.dat')
+    f.slc = paste0(lcdir, id, '_n.clc')
+    if (!file.exists(f.slc))  f.slc = paste0(lcdir, id, '_h.clc')
     if (!file.exists(f.slc)) stop(id)
     lc = read.table(f.slc)
+    lc[,1] = lc[,1] + 2450000 - 2400000.5
     x = ((lc[,1]-t0)/period) %% 1
     y = lc[,2]
     e = lc[,3]
@@ -81,7 +84,7 @@ for (id in uids) {
     ylim = c(midmag + amp, midmag - amp)
     thiszp = mean(off)
 
-    plot(xc, yc, xlab='Phase', ylab='H\' [mag]', xlim = xlim, ylim = ylim, type = 'l',
+    plot(xc, yc, xlab='Phase', ylab='H [mag]', xlim = xlim, ylim = ylim, type = 'l',
          main = obj, col = 'black', cex.axis = 1, xaxt = 'n')
     axis(1, at = seq(0,2,0.5), labels = c('0', '0.5', '1', '0.5', '1'))
     points(x, y, pch = 19, cex = 1)
