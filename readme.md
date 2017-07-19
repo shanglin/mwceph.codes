@@ -1,56 +1,7 @@
 ## This page is for personal record.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[comment]: <> (
 
 
 #*H* LIGHT CURVES OF 34 GALACTIC CEPHEIDS
@@ -74,7 +25,7 @@
 - `phase_corr` gives the phase correction results and their uncertainties.
 
 
-
+)
 
 
 
