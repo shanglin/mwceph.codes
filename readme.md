@@ -1,7 +1,7 @@
 ## This page is for personal record.
 
 
-[comment]: <> (
+<!---
 
 
 #*H* LIGHT CURVES OF 34 GALACTIC CEPHEIDS
@@ -24,9 +24,7 @@
 - `draft` contains R scripts for making figures and tables in the draft paper.
 - `phase_corr` gives the phase correction results and their uncertainties.
 
-
-)
-
+-->
 
 
 
